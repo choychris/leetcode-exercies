@@ -30,3 +30,21 @@ class Solution:
                 )
 
         return createBinaryTree(nums)
+
+
+# As pointed out by Leetcode folks, slicing is expensive. It makes the complexity to O(n log n)
+# first slice is O(1 * n), second is O(2 * n/2)
+class BetterSolution:
+    def sortedArrayToBST(self, nums: list[int]) -> TreeNode:
+        def createNode(nums_list, left_idx, right_idx):
+            if left_idx > right_idx:
+                return None
+
+            mid = (left_idx + right_idx) / 2
+            node = TreeNode(nums_list[mid])
+            node.left = createNode(nums_list, left_idx, mid)
+            node.right = createNode(nums_list, mid + 1, right_idx)
+
+            return node
+
+        return createNode(nums, 0, len(nums) - 1)
