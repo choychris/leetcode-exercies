@@ -31,4 +31,17 @@ s consists of English letters, digits, symbols and spaces.
 
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        print("todo")
+        if len(s) <= 1:
+            return len(s)
+
+        start = 0  # left pointer
+        answer = 0
+        posDict = dict()
+        for j in range(len(s)):  # right pointer
+            if s[j] in posDict:
+                start = max(start, posDict[s[j]] + 1)  # move the left pointer across the duplicate word
+
+            posDict[s[j]] = j
+            answer = max(answer, j - start + 1)
+
+        return answer
