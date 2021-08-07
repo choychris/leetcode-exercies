@@ -10,8 +10,8 @@ class DPSolution:
         for i in range(n):
             dp[i] = 1
 
-        for i in range(m):
-            for j in range(n):
+        for i in range(1, m):
+            for j in range(1, n):
                 dp[j] += dp[j - 1]
 
         return dp[n - 1]
